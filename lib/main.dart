@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:form_validator/form_validator.dart';
 
 void main() {
   runApp(MyApp());
@@ -79,11 +80,24 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+final formKey = new GlobalKey<FormState>();
+
+void validateAndSave() {
+  final form = formKey.currentState;
+  if (form.validate()) {
+    print('form is valid');
+  } else {
+    print('form is invalid');
+  }
+}
+
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final emailField = TextField(
+    final emailField = TextFormField(
+      key: formKey,
       obscureText: false,
+      validator: (value) => value.isEmpty ? 'This field cannot be empty' : null,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Email",
@@ -98,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: MaterialButton(
           minWidth: MediaQuery.of(context).size.width,
           padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          onPressed: () {}, // define the fucntion that runs on press
+          onPressed: validateAndSave, // define the fucntion that runs on press
           child: Text("Login", textAlign: TextAlign.center)),
     );
 
@@ -136,7 +150,46 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+// class FirstRoute extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('First Route'),
+//       ),
+//       body: Center(
+//         child: ElevatedButton(
+//           child: Text('Open route'),
+//           onPressed: () {
+//             Navigator.push(
+//               context,
+//               MaterialPageRoute(builder: (context) => SecondRoute()),
+//             );
+//           },
+//         ),
+//       ),
+//     );
+//   }
+// }
 
+// class SecondRoute extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("Second Route"),
+//       ),
+//       body: Center(
+//         child: ElevatedButton(
+//           onPressed: () {
+//             Navigator.pop(context);
+//           },
+//           child: Text('Go back!'),
+//         ),
+//       ),
+//     );
+//   }
+// }
 // @override
 // Widget build(BuildContext context) {
 //   // This method is rerun every time setState is called, for instance as done
