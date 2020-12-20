@@ -91,6 +91,20 @@ void validateAndSave() {
   }
 }
 
+
+
+// void _makeGetRequest() async {
+//   // make GET request
+//   String url = 'https://localhost:3003/api/Customer';
+//   Response response = await get(url);
+//   // sample info available in response
+//   int statusCode = response.statusCode;
+//   Map<String, String> headers = response.headers;
+//   String contentType = headers['content-type'];
+//   String json = response.body;
+//   // TODO convert json to object...
+// }
+
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
